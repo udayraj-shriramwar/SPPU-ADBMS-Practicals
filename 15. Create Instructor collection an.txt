@@ -1,0 +1,35 @@
+15. Create Instructor collection and execute following queries
+ a. Find out details of instructors working in IT department
+ b. Find out details of instructors who have salary>40000
+ c. Give count of inst in comp dept
+ d. Give incrementof 10000 to instructor whose status is approved
+
+use mongo15;
+
+db.instructors.insertMany([
+{ _id: 1, name: "Riya", dept: "IT", salary: 45000, status: "approved" },
+{ _id: 2, name: "Aditi", dept: "COMP", salary: 38000, status: "approved" },
+{ _id: 3, name: "Tanmayee", dept: "IT", salary: 52000, status: "not approved" },
+{ _id: 4, name: "Rohan", dept: "ENTC", salary: 47000, status: "approved" },
+{ _id: 5, name: "Divya", dept: "COMP", salary: 30000, status: "not approved" }
+])
+
+// a. Find out details of instructors working in IT department 
+
+db.instructors.find({dept:'IT'});
+
+// b. Find out details of instructors who have salary>40000  
+
+db.instructors.find({salary:{$gt:40000}}) 
+
+// c. Give count of inst in comp dept 
+
+db.instructors.countDocuments({dept:"COMP"});
+
+// d. Give incrementof 10000 to instructor whose status is approved 
+ 
+db.instructors.updateMany({status:"approved"},{$inc:{salary:10000}}); 
+
+db.instructors.find().pretty();
+
+

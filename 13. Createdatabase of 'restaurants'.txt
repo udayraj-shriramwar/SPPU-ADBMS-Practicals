@@ -1,0 +1,25 @@
+13. Createdatabase of 'restaurants' collection(Using mongodb)
+ To display the fields restaurant_id, name and cuisine for all the documents 
+in the collection restaurant.
+  To find the restaurants that do not prepare any cuisine of 'London' and 
+their grade score more than 70
+  To find the restaurant Id, name, and cuisine for those restaurants which 
+contain 'esh' as last three letters for its name
+  To display all the documents in the collection restaurants.
+
+
+db.restaurants.insertMany([{ restaurant_id: 1, name: "FreshBites", cuisine: "Italian", city: "Paris", grade: 85 }, { restaurant_id: 2, name: "TastyDish", cuisine: "Indian", city: "London", grade: 65 }, { restaurant_id: 3, name: "SpiceCrush", cuisine: "Chinese", city: "Delhi", grade: 92 }, { restaurant_id: 4, name: "VegDelish", cuisine: "Continental", city: "Tokyo", grade: 75 }, { restaurant_id: 5, name: "RoyalDine", cuisine: "Mexican", city: "London", grade: 95 }, { restaurant_id: 6, name: "YumFresh", cuisine: "Italian", city: "Rome", grade: 88 }])
+
+// To display the fields restaurant_id, name and cuisine for all the documents in the collection restaurant 
+ db.restaurants.find({},{_id:0,restaurant_id:1,name:1,cuisine:1}) 
+
+// To find the restaurants that do not prepare any cuisine of 'London' and their grade score more than 70 
+ db.restaurants.find({city:{$ne:"london"},grade:{$gt:70}}); 
+
+// to find the restaurant Id, name, and cuisine for those restaurants which contain 'esh' as last three letters for its name  
+ 
+db.restaurants.find({name:{$regex:"esh$",$options:"i"}},{_id:0,restaurant_id:1, name:1,cuisine:1});
+
+// To display all the documents in the collection restaurants. 
+
+db.restaurants.find().pretty();

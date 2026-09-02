@@ -1,0 +1,35 @@
+ 20. Create Instructor collection and execute following queries
+ a. Find out details of instructors having salary >40000 and < 80000
+ b. Display the details of instructors who are living in Maharashtra
+ c. Find out details of instructors working in AIML department
+ d. Find instructor id along with department and salary where department 
+has substring o.
+
+use mongo19; 
+
+
+db.Instructor.insertMany([
+{ _id: 1, first_name: "Saurabh", last_name: "Kale", dept: "IT", city: "Nagpur", salary: 45000, status: "approved" },
+{ _id: 2, first_name: "Rohit", last_name: "Patil", dept: "Computer", city: "Pune", salary: 55000, status: "approved" },
+{ _id: 3, first_name: "Priya", last_name: "Deshmukh", dept: "Civil", city: "Nashik", salary: 28000, status: "pending" },
+{ _id: 4, first_name: "Amit", last_name: "Joshi", dept: "Mechanical", city: "Mumbai", salary: 50000, status: "approved" },
+{ _id: 5, first_name: "Sneha", last_name: "Kulkarni", dept: "Electrical", city: "Solapur", salary: 25000, status: "approved" }
+])
+
+
+// a. Find out details of instructors having salary >40000 and < 80000 
+
+db.Instructor.find({ salary: { $gt:40000,$lt:80000}});
+
+// b.Display the details of instructors who are living in Mumbai 
+
+db.Instructor.find({ city:"Mumbai"});
+
+// c. Find out details of instructors working in civil department 
+
+db.Instructor.find({ dept:"Computer"}); 
+
+
+// d. Find instructor id along with department and salary where department has substring o. 
+
+db.Instructor.find({ dept: { $regex: /o/i } }, { _id: 1, dept: 1, salary: 1 }) 

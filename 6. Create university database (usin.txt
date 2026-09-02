@@ -1,0 +1,47 @@
+ 6. Create university database (using mongodb)
+ . Find the list of teachers in IT dept.
+ . Find the list of teachers who have salary greater than 50000.
+ . Find the teacher’s list in descending order.
+ . Remove the teacher whose status is not approved.
+ . Give the increment of rs.20000 who has salary less than 30000.
+
+use mongo6;
+
+db.teachers.insertMany([{_id:1,name:'riya',dept:'it',salary:65000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:2,name:'aboli',dept:'entc',salary:75000,status:' not approved'}]); 
+
+db.teachers.insertMany([{_id:3,name:'supriya',dept:'comp',salary:45000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:4,name:'tanmayee',dept:'it',salary:50000,status:'approved'}]); 
+
+db.teachers.insertMany([{_id:5,name:'swapna',dept:'it',salary:80000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:6,name:'tanuja',dept:'entc',salary:35000,status:'not approved'}]);
+
+db.teachers.find().pretty();
+
+// Find the list of teachers in IT dept.  
+
+db.teachers.find({dept:'it'});
+
+// Find the list of teachers who have salary greater than 50000. ∙ 
+
+db.teachers.find({salary:{$gt:50000}}).pretty();
+
+//  Find the teacher’s list in descending order.  
+
+db.teachers.find().sort({salary:-1}) 
+
+// ∙ Remove the teacher whose status is not approved.  
+
+db.teachers.deleteMany({status:'not approved'})
+
+db.teachers.find().pretty();
+
+// ∙ Give the increment of rs.5000 who has salary less equal to 45000.  
+ db.teachers.updateMany({salary:{$lte:40000}},{$inc:{salary:5000}});
+
+db.teachers.find().pretty();
+
+ 

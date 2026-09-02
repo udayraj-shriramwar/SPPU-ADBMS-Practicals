@@ -1,0 +1,57 @@
+ 12. Create teacher database which contains the information of teacherid, name, department, salary and status of teacher (Approved/not approved). Design and implement any ten queries using mongodb.
+
+
+use mongo6;
+
+db.teachers.insertMany([{_id:1,name:'riya',dept:'it',salary:65000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:2,name:'aboli',dept:'entc',salary:75000,status:' not approved'}]); 
+
+db.teachers.insertMany([{_id:3,name:'supriya',dept:'comp',salary:45000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:4,name:'tanmayee',dept:'it',salary:50000,status:'approved'}]); 
+
+db.teachers.insertMany([{_id:5,name:'swapna',dept:'it',salary:80000,status:'approved'}]);
+
+db.teachers.insertMany([{_id:6,name:'tanuja',dept:'entc',salary:35000,status:'not approved'}]);
+
+// Display all teacher details 
+
+db.teachers.find().pretty();
+
+// Find teachers from IT department 
+
+db.teachers.find({dept:"it"})
+
+// Find teachers whose salary is greater than ₹60,000 
+
+db.teachers.find({salary:{$gt:60000}})
+
+// Find teachers whose status is “approved” 
+
+db.teachers.find({status:"approved"}); 
+
+// Display teachers in ascending order of salary 
+
+db.teachers.find().sort({ salary: 1 }) 
+
+// Display teachers in descending order of salary 
+
+db.teachers.find().sort({salary:-1})  
+
+// Find the total salary of all approved teachers 
+ 
+db.teachers.aggregate([{$match:{status:"approved"}},{$group:{_id:null,total_salary:{$sum:"$salary"}}}]) 
+
+// Increment salary of teachers in IT dept by ₹5,000
+ 
+db.teachers.updateMany({dept:"it"},{$inc:{salary:5000}});
+
+// Remove teachers whose status is not approved 
+ 
+db.teachers.deleteMany({ status: " not approved" });
+
+// Count the number of teachers in each department 
+
+db.teachers.aggregate([ { $group: { _id: "$dept", total_teachers: { $sum: 1 } } } ]) 
+

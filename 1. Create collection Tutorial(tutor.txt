@@ -1,0 +1,53 @@
+1. Create table Tutorial(
+ MongoDB
+ tutorial_id,tut_title,author,submission_date) using 
+Implement following operation on above table
+ 1)Insert
+ 2)Update
+ 3)Delete
+ 4)Display all the tutorial details
+ 5)Find specific tutorial_id and author of respective tutorial.
+ 6)Display all the records of tutorial where author name starts with”Sa”
+ 7)Display all tutorials in Ascending and Descending order according to 
+tutorial_id or author name. 
+
+
+
+db.tutorial.insertMany([{ tut_id: 1, title :" intro to mongo " , author: 'samir', submission_date : "23-10-24"}]) ;
+
+db.tutorial.insertMany([{ tut_id: 2, title :" indexing " , author: 'mayank', submission_date : "23-1-20"}]) ; 
+
+db.tutorial.insertMany([{ tut_id: 3, title :" adv mongo " , author: 'divya', submission_date : "2-4-22"}]) ;
+
+db.tutorial.insertMany([{ tut_id: 4, title :" frameworks " , author: 'saniya', submission_date : "2-10-21"}]) ;
+
+db.tutorial.find().pretty() ;
+
+db.tutorial.updateOne({tut_id :3} ,{ $set :{title :"advanced Mongo"}});
+
+db.tutorial.deleteOne({ tut_id :4}) ; 
+
+db.tutorial.find().pretty();
+
+db.tutorial.find({ tut_id: 3 }, { tut_title: 1, author: 1 });
+
+db.tutorial.find({ tut_id: 3 }, {title: 1, author: 1 });
+
+
+db.Tutorial.find({ author:{$regex : /^sa/,$options:'i'}}) 
+ 
+db.Tutorial.find({ author:{$regex : /^sa/}}); 
+ 
+db.Tutorial.find({ author:{$regex : /^sa/,$options:'i'}}); 
+ 
+db.tutorial.find({ author:{$regex : /^sa/,$options:'i'}}); 
+
+db.tutorial.find().sort({ author:-1}); 
+
+
+
+
+
+
+
+

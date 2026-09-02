@@ -1,0 +1,46 @@
+10. Execute at least 10 queries on any suitable MongoDB database that demonstrates 
+following:    
+a. $ where queries 
+b. Cursors (Limits, skips, sorts, advanced query options)
+c.Database commands
+
+use mongo10;
+
+db.employees.insertMany([{ _id: 1, name: "Riya", dept: "HR", salary: 45000, age: 26 }, { _id: 2, name: "Raj", dept: "IT", salary: 60000, age: 29 }, { _id: 3, name: "Aditi", dept: "Sales", salary: 38000, age: 24 }, { _id: 4, name: "Rohan", dept: "IT", salary: 72000, age: 31 }, { _id: 5, name: "Divya", dept: "Admin", salary: 30000, age: 25 }, { _id: 6, name: "Tanmay", dept: "Sales", salary: 50000, age: 27 }, { _id: 7, name: "Neha", dept: "HR", salary: 47000, age: 28 }])
+
+db.employees.find().pretty()
+
+// a. $ where queries 
+
+db.employees.find({$where: "this.salary>50000"});
+
+db.employees.find({$where:"this.salary>40000 && this.age>25"})
+ db.employees.find({$where:"this.name.startsWith('Ro')"})
+
+// b. Cursors (Limits, skips, sorts, advanced query options) 
+
+db.employees.find().limit(3); 
+
+db.employees.find().skip(3);
+
+db.employees.find().sort({age:1});
+
+db.employees.find().sort({salary:-1});
+
+db.employees.find().sort({salary:-1}).limit(1);
+
+db.employees.find().limit(3);
+
+db.employees.find().skip(3);
+
+db.employees.find().sort({age:1});
+
+db.employees.find().sort({salary:-1}); 
+
+db.employees.find().sort({salary:-1}).limit(1);
+
+// c. Database commands 
+
+db.getCollectionNames(); 
+
+db.employees.countDocuments()

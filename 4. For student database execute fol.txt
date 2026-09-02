@@ -1,0 +1,45 @@
+4. For student database execute following queries:----
+Find the record of the students who has got the highest marks in DBMS subject.
+ Find the average result of TOC subject.
+ Find the record of the students who has got the lowest marks in CNT subject.
+ Find the total number of students who scored first class.
+
+use mongo4;
+
+db.records.insertMany([{ rollno: 1, name: "aditi", toc: 78, dbms: 89, cnt: 93 }]);
+
+db.records.insertMany([{ rollno: 2, name: "rohan", toc: 56, dbms: 93, cnt: 64 }]);
+
+db.records.insertMany([{ rollno: 3, name: "raj", toc: 58, dbms: 91, cnt: 45 }]); 
+
+db.records.insertMany([{ rollno: 4, name: "riya", toc: 64, dbms: 56, cnt: 78 }]);
+
+db.records.insertMany([{ rollno: 5, name: "arohi", toc: 76, dbms: 83, cnt: 65 }]);
+
+db.records.insertMany([{ rollno: 6, name: "diviya", toc: 89, dbms: 45, cnt: 69 }]);
+
+db.records.find().pretty();
+
+db.records.updateMany( { dbms: { $gte: 85 } }, { $set: { class: "Distinction" } } )
+
+db.records.updateMany({dbms:{$lte:50}},{$set:{ class : "fail"}});
+
+db.records.find().pretty();
+
+
+//  Find the record of the students who has got the highest marks in DBMS subject.
+
+db.records.find().sort({dbms:-1}).limit(1);
+
+// Find the average result of TOC subject. 
+
+db.records.aggregate([{ $group: {_id:null,avg_toc:{ $avg:"$toc"}}}]); 
+
+// Find the record of the students who has got the lowest marks in CNT subject.
+
+db.records.find().sort({cnt:1}).limit(1);
+
+// Find the total number of students who scored first class.
+
+db.records.aggregate([{$match:{class:"Distinction"}},{$count:"total_dis_stu"}]);
+

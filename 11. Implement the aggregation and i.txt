@@ -1,0 +1,77 @@
+ 11. Implement the aggregation and indexing with suitable example in MongoDB. 
+Demonstrate the following: Aggregation framework Create and drop different types of indexes and explain () to show the advantage of the indexes.
+
+
+use mongo11;
+
+db.students.insertMany([{ roll_no: 1, name: "Piyush", dept: "IT", marks: 85, fees: 40000 }, { roll_no: 2, name: "Rohan", dept: "CS", marks: 78, fees: 45000 }, { roll_no: 3, name: "Sakshi", dept: "ENTC", marks: 92, fees: 42000 }, { roll_no: 4, name: "Neha", dept: "IT", marks: 67, fees: 39000 }, { roll_no: 5, name: "Aditya", dept: "MECH", marks: 58, fees: 41000 }, { roll_no: 6, name: "Aarav", dept: "CS", marks: 83, fees: 46000 }, { roll_no: 7, name: "Isha", dept: "ENTC", marks: 90, fees: 44000 }, { roll_no: 8, name: "Raj", dept: "IT", marks: 95, fees: 47000 }])
+ 
+db.students.find().pretty()
+
+// Min marks of student in that department 
+
+db.students.aggregate([{$group:{_id:"$dept", minmarks:{$min:"$marks"}}}]); 
+
+// Total students in each dept 
+
+db.students.aggregate([{$group:{_id:"$dept", totalStudents:{$sum:1}}}]); 
+
+// avg marks of each deptartment 
+ 
+db.students.aggregate([{$group:{_id:"$dept",avg_marks:{$avg:"$marks"} }}])
+
+// Filter based on fees collected by dept 
+
+db.students.aggregate([{$group:{_id:"$dept", totalfees:{$sum:"$fees"}}}]);
+
+// Filter Students Scoring Above 80 Marks and Show Sorted Result 
+ 
+db.students.aggregate([{$match:{marks:{$gt:80}}},{$sort:{marks:1}},{$project:{_id:0,name:1,dept:1,marks:1}}]); 
+
+// indexing 
+
+db.students.createIndex({dept:1}); 
+
+db.students.createIndex({ dept: 1, marks: -1 }); 
+
+db.students.createIndex({ roll_no: 1 }, { unique: true }); 
+
+db.students.getIndexes();
+
+db.students.dropIndex("dept_1") 
+
+db.students.find({ dept: "IT" }).explain("executionStats"); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

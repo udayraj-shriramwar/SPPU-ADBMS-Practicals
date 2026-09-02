@@ -1,0 +1,53 @@
+ 9. Create a database Execute at least 10 queries on any suitable MongoDB 
+database that demonstrates following querying techniques: 
+a. find and findOne (specific values) 
+b. Query criteria (Query conditionals, OR queries, $not, Conditional 
+semantics)
+ c. Type-specific queries (Null, Regular expression, Querying arrays)
+
+
+use mongo9; 
+
+db.students.insertMany([{ _id: 1, name: "Riya", branch: "IT", marks: 85, hobbies: ["reading", "coding"], city: "Pune" }, { _id: 2, name: "Aditi", branch: "CSE", marks: 92, hobbies: ["music", "drawing"], city: "Mumbai" }, { _id: 3, name: "Rohan", branch: "ENTC", marks: 56, hobbies: ["cricket", "reading"], city: null }, { _id: 4, name: "Raj", branch: "IT", marks: 70, hobbies: ["gaming", "music"], city: "Nagpur" }, { _id: 5, name: "Diviya", branch: "CSE", marks: 48, hobbies: ["drawing", "coding"], city: "Pune" }])
+
+// 1.find name of all students 
+
+db.students.find().pretty(); 
+
+// 2.find one query  
+
+db.students.findOne({marks:{$gte:83}})
+
+// 3.greater than condition where marks are greater than 83 
+ 
+db.students.findOne({marks:{$gte:83}}) 
+
+// 4.using or operator 
+
+db.students.find({$or: [{branch:"IT"},{marks:{$gt:80}}]}) 
+
+// 5.using not operator 
+
+db.students.find({marks:{$not:{$lt:50}}})
+
+// 6.using$ne operator  
+
+db.students.find({city:{$ne:'Pune'}})
+
+// 7.Sorting name in descending order 
+
+db.students.find().sort({name:-1}); 
+
+// 8. Regular Expression Query showing Displays all students whose names start with ‘Ri’ (case insensitive). 
+
+db.students.find({name:{$regex:/^ri/i}});
+
+// 9.displaying branch wise avg marks 
+ 
+db.students.aggregate({$group:{_id:"$branch",avg_marks:{$avg:"$marks"}}}) 
+
+// 10. Finds students having both “reading” and “coding” as hobbies. 
+
+db.students.find({ hobbies: { $all: ["reading", "coding"] } })
+
+

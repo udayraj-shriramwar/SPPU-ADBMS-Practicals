@@ -1,0 +1,36 @@
+3. Implement aggregation and indexing with suitable example using MongoDB.
+
+use mongo3;
+
+db.students.insertOne({ roll_no: 1, name: "Amit", department: "IT", marks: 78, city: "Pune" })
+
+db.students.insertMany([{ roll_no: 2, name: "Sneha", department: "CSE", marks: 88, city: "Mumbai" }, { roll_no: 3, name: "Rahul", department: "IT", marks: 92, city: "Nagpur" }, { roll_no: 4, name: "Priya", department: "CSE", marks: 81, city: "Pune" }, { roll_no: 5, name: "Karan", department: "ENTC", marks: 74, city: "Nashik" }, { roll_no: 6, name: "Riya", department: "ENTC", marks: 69, city: "Pune" }, { roll_no: 7, name: "Sahil", department: "IT", marks: 85, city: "Mumbai" }])
+
+db.students.find().pretty();
+
+db.students.aggregate([{$group:{_id:"$department",average_marks:{$avg:'marks'}}}]);
+
+db.students.aggregate([{$group:{_id:"$department",average_marks:{$avg:'$marks'}}}]);
+
+db.students.aggregate([{$group:{_id:"$department",average_marks:{$sum:'$marks'}}}]);
+
+db.students.aggregate([{$group:{_id:"$department",min_marks:{$min:'$marks'}}}]);
+
+db.students.aggregate([{$group:{_id:"$department",max_marks:{$max:'$marks'}}}]);
+
+db.students.aggregate([{$count:"total_students"}]);
+
+db.students.aggregate([ { $sort: { marks: -1 } } ]) 
+
+db.students.aggregate([ { $sort: { marks: -1 } }, { $limit: 3 }]) 
+
+db.students.aggregate([ { $skip: 2 } ]) 
+
+db.students.createIndex({ department: 1 }) 
+
+db.students.find({ department:"IT" }).explain("executionStats")
+
+db.students.getIndexes()
+
+
+

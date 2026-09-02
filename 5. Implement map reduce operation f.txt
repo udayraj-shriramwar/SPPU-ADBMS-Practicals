@@ -1,0 +1,27 @@
+5. Implement map reduce operation for super market.
+
+use mongo5;
+
+db.sales.insertMany([{_id:1,item:'milk',qty:2, price:30}]);
+
+db.sales.insertMany([{_id:2,item:'bread',qty:7, price:50}]);
+
+db.sales.insertMany([{_id:3,item:'bread',qty:1, price:50}]);
+
+db.sales.insertMany([{_id:4,item:'butter',qty:4, price:40}]);
+
+db.sales.insertMany([{_id:5,item:'milk',qty:5, price:30}]);
+
+db.sales.find().pretty();
+
+var mapFunction =function(){var total =this.price*this.qty ;emit(this.item,total);};
+
+var reduceFunction= function(key,values){return Array.sum(values);};
+
+db.sales.mapReduce(mapFunction,reduceFunction,{out:"total_sales_per_item"})
+
+db.total_sales_per_item.find().pretty()
+
+
+
+

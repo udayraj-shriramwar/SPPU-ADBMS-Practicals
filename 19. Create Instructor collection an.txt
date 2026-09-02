@@ -1,0 +1,32 @@
+ 19. Create Instructor collection and execute following queries
+ a. Delete details of instructor having salary < 30000
+ b. Find instructors with either salary<50000 or deparment is computer
+ c. Find out details of instructors who have salary==50000
+ d. Find employee id, first name, along with salary where salary>50000
+
+use mongo19; 
+
+
+db.Instructor.insertMany([
+{ _id: 1, first_name: "Saurabh", last_name: "Kale", dept: "IT", city: "Nagpur", salary: 45000, status: "approved" },
+{ _id: 2, first_name: "Rohit", last_name: "Patil", dept: "Computer", city: "Pune", salary: 55000, status: "approved" },
+{ _id: 3, first_name: "Priya", last_name: "Deshmukh", dept: "Civil", city: "Nashik", salary: 28000, status: "pending" },
+{ _id: 4, first_name: "Amit", last_name: "Joshi", dept: "Mechanical", city: "Mumbai", salary: 50000, status: "approved" },
+{ _id: 5, first_name: "Sneha", last_name: "Kulkarni", dept: "Electrical", city: "Solapur", salary: 25000, status: "approved" }
+])
+
+// a. Delete details of instructor having salary < 30000 
+
+db.Instructor.deleteMany({ salary: { $lt: 30000 } }) 
+
+// b. Find instructors with either salary<50000 or deparment is computer 
+ 
+db.Instructor.find({salary:{$lt:50000}}&&{dept:"Computer"}); 
+
+// c. Find out details of instructors who have salary==50000 
+
+db.Instructor.find({salary:50000});
+
+// d. Find employee id, first name, along with salary where salary>50000 
+
+db.Instructor.find({salary:{$gt:50000} },{_id:1,first_name:1,salary:1,_id:0})

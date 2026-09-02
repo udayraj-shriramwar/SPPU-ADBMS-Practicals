@@ -1,0 +1,35 @@
+ 14. Create author database(Using Mongodb)-Using author_id, title, name, description, url,likes.
+  To display a list stating how many tutorials are written by each user
+  To display author names where the author field equals “Kahate”
+  To display all author names in ascending & descending order
+  To calculate maximum& minimum value of book title
+
+
+use mongo13;
+
+db.authors.insertMany([
+  { author_id: 1, title: "Introduction to MongoDB", name: "Kahate", description: "Basics of NoSQL and MongoDB usage.", url: "www.learnmongo.com", likes: 120 },
+  { author_id: 2, title: "Advanced Database Systems", name: "Patil", description: "Covers advanced DBMS concepts and distributed databases.", url: "www.dbadvance.com", likes: 90 },
+  { author_id: 3, title: "Data Analytics with Python", name: "Kahate", description: "Practical guide for beginners in Python data analytics.", url: "www.datapython.com", likes: 150 },
+  { author_id: 4, title: "Machine Learning Fundamentals", name: "Joshi", description: "Introductory ML algorithms explained simply.", url: "www.mlfundamentals.com", likes: 110 },
+  { author_id: 5, title: "Cloud Computing Basics", name: "Patil", description: "Cloud models, virtualization and deployment models.", url: "www.cloudlearn.com", likes: 85 }
+])
+
+// To display a list stating how many tutorials are written by each use 
+ 
+db.authors.aggregate([{$group:{_id:"$name",total_tut:{$sum:1}}}])
+
+db.authors.aggregate([{$group:{_id:"$name",total_tut:{$sum:1}}}])
+
+// To display author names where the author field equals “Kahate”  
+
+db.authors.find({name:"Kahate"}) 
+
+//  To display all author names in ascending & descending 
+
+db.authors.find().sort({'name':1})
+
+db.authors.find().sort({'name':-1})
+
+
+

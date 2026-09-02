@@ -1,0 +1,31 @@
+ 18. Create Instructor collection and execute following queries
+a. Display details of instructor whose City has substring n
+ b. Find details of instructor whose Dept has substring mec and h
+ c. Find out instructor id, first name, department name along with salary 
+where salary< 50000 and status is approved
+ d. Find out details of instructors who have salary<30000
+
+use mongo18
+
+db.Instructor.insertMany([
+{ _id: 1, first_name: "Saurabh", last_name: "Kale", dept: "IT", city: "Nagpur", salary: 45000, status: "approved" },
+{ _id: 2, first_name: "Rohit", last_name: "Patil", dept: "Mechanical", city: "Pune", salary: 52000, status: "approved" },
+{ _id: 3, first_name: "Priya", last_name: "Deshmukh", dept: "Civil", city: "Nashik", salary: 28000, status: "pending" },
+{ _id: 4, first_name: "Amit", last_name: "Joshi", dept: "Mechanical", city: "Mumbai", salary: 48000, status: "approved" },
+{ _id: 5, first_name: "Sneha", last_name: "Kulkarni", dept: "Electrical", city: "Solapur", salary: 25000, status: "approved" }
+])
+
+// a. Display details of instructor whose City has substring n 
+
+db.Instructor.find({city:{$regex:/n/i}})
+
+// b. Find details of instructor whose Dept has substring mec and h 
+
+db.Instructor.find({dept:{$regex:/mech/i}} &&{dept:{$regex:/h/i}}) 
+
+// c. Find out instructor id, first name, department name along with salary where salary< 50000 and status is approved 
+ 
+db.Instructor.find({salary:{$lte:50000},status:"approved"},{_id:0 ,first_name:1,dept:1,salary:1,_id:0})
+
+db.Instructor.find().pretty() 
+

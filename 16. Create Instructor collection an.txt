@@ -1,0 +1,34 @@
+16. Create Instructor collection and execute following queries
+ a. Display the documents in ascending order
+ b. Display the details of instructor whose first name is Saurabh
+ c. Display first 5 documents of instructor collection
+ d. Add one more phone to id 1 (AddtoSet )
+
+
+use mongo16; 
+
+db.Instructor.insertMany([
+{ _id: 1, first_name: "Saurabh", last_name: "Kale", dept: "IT", salary: 45000, phone: ["9876543210"], status: "approved" },
+{ _id: 2, first_name: "Rohit", last_name: "Patil", dept: "COMP", salary: 39000, phone: ["9988776655"], status: "pending" },
+{ _id: 3, first_name: "Priya", last_name: "Deshmukh", dept: "ENTC", salary: 52000, phone: ["9090909090"], status: "approved" },
+{ _id: 4, first_name: "Amit", last_name: "Joshi", dept: "IT", salary: 48000, phone: ["9123456789"], status: "approved" },
+{ _id: 5, first_name: "Sneha", last_name: "Kulkarni", dept: "COMP", salary: 41000, phone: ["9876501234"], status: "pending" }
+])
+
+// a. Display the documents in ascending order 
+
+db.Instructor.find().sort({'first_name':1})
+
+// b. Display the details of instructor whose first name is Saurabh 
+
+db.Instructor.find({first_name:"Saurabh"})
+
+// c. Display first 5 documents of instructor collection 
+
+db.Instructor.find().limit(5); 
+
+// d. Add one more phone to id 1 (AddtoSet ) 
+ 
+db.Instructor.updateOne({_id:1},{$addToSet:{phone:"901256748"}})
+
+db.Instructor.find({_id:1})

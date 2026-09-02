@@ -1,0 +1,42 @@
+7. Create library database (using mongodb)
+ List the books of management subjects.
+ List the books whose publication is “Pearson”
+ List the number of journals.
+ List the number of books which price is less than rs.500.
+ Find the total investment for IT dept (IT books).
+
+use mongo7;
+
+db.books.insertMany([{title:"management principles",sub:"management",publicatiob:"pearson",type:"book",price:600}]);
+
+db.books.insertMany([{title:"management ideas",sub:"management",publicatiob:"mc clerk",type:"journal",price:500}]);
+
+db.books.insertMany([{title:"marketing strategy",sub:"marketing",publicatiob:"minksley",type:"book",price:670}]);
+
+db.books.insertMany([{title:"computer networks",sub:"it",publicatiob:"ieee",type:"journal",price:570}]); 
+
+db.books.insertMany([{title:"machine learning",sub:"it",publicatiob:"ieee",type:"book",price:470}]); 
+
+db.books.find().pretty();
+
+// List the books of management subjects. 
+
+db.books.find({sub:'management'});
+
+//List the books whose publication is “Pearson”  
+
+db.books.find({publicatiob:'pearson'})
+
+//  List the number of journals.  
+
+ db.books.countDocuments({ type:"journal"})
+
+//  List the number of books which price is less than rs.500.  
+
+db.books.find({price:{$lte:500}});
+
+ db.books.countDocuments({ price: { $lte: 500 }, type: "book" })
+
+//  Find the total investment for IT dept (IT books).  
+
+db.books.aggregate([{$match:{sub:'it'}},{$group:{_id :null ,totalinvestment:{$sum:"$price"}}}]); 

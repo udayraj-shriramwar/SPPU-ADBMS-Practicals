@@ -1,0 +1,43 @@
+8. Create a database with suitable example using MongoDB and implement 
+a. inserting and saving document (batch insert, insert validation) 
+b. Removing document
+c. Updating document (document replacement, using modifiers, upserts, 
+updating multiple documents, returning updated documents)
+
+use mongo8;
+
+// a. inserting and saving document (batch insert, insert validation) 
+ db.employees.insertOne({emp_id:1,name:"rahul",dept:"hr" ,salary:45000,status:"active"});
+
+db.employees.insertMany([{ emp_id: 2, name: "Sneha Patil", department: "IT", salary: 55000, status: "active" }, { emp_id: 3, name: "Amit Joshi", department: "Finance", salary: 40000, status: "active" }, { emp_id: 4, name: "Priya Deshmukh", department: "IT", salary: 30000, status: "inactive" }])
+
+if (typeof 60000 === "number") { db.employees.insertOne({ emp_id: 5, name: "Karan More", department: "IT", salary: 60000 }) }
+
+// b. Removing document 
+
+db.employees.deleteOne({ emp_id: 4 })
+
+// c. Updating document (document replacement, using modifiers, upserts, updating multiple documents, returning updated documents) replacement 
+ 
+db.employee.replaceOne(({emp_id:1},{emp_id:1,name:"rahul",dept:"admin",salary:50000,status:"active"}) );
+
+// Using Modifiers ($set, $inc, $rename) 
+
+db.employees.updateOne({ emp_id: 2 }, { $set: { department: "R&D" } })
+
+db.employees.updateOne({ emp_id: 3 }, { $inc: { salary: 5000 } })
+
+db.employees.updateMany({}, { $rename: { "department": "dept" } })
+
+// 3. Upsert (Insert if Not Found) 
+
+db.employees.updateOne({ emp_id: 6 }, { $set: { name: "Rohit Pawar", dept: "HR", salary: 42000 } }, { upsert: true })
+
+
+// 4. Update Multiple Documents 
+
+db.employees.updateMany({ dept: "IT" }, { $inc: { salary: 2000 } })
+ 
+// 5. Returning Updated Document (Mongo Shell) 
+
+db.employees.findOneAndUpdate({ emp_id: 2 }, { $set: { salary: 60000 } }, { returnNewDocument: true })
